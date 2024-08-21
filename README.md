@@ -1,14 +1,18 @@
 # CPI value
 ## _A Web Service in SpringBoot that provides the CPI value_
 
-[![N|Solid](https://miro.medium.com/v2/resize:fit:716/1*98O4Gb5HLSlmdUkKg1DP1Q.png)](https://spring.io/projects/spring-boot)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 This Spring Boot application provides a web service that retrieves Consumer Price Index (CPI) values and notes for a specified month and year.
 The service calls the Bureau of Labor Statistics (BLS) API to get the real CPI data and caches the results in an H2 database for subsequent requests.
 This ensures the application stays within the API call limit.
 
+
+```
+branch main implemented with H2 in memory db
+and branch  cache-manager is implemented with Spring [CacheManager](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/cache/CacheManager.html) It is not completed yet!
+
+``` 
 
 # Implementation Logic
 
