@@ -5,7 +5,19 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-This Spring Boot application provides a web service that retrieves Consumer Price Index (CPI) values and notes for a specified month and year. The service calls the Bureau of Labor Statistics (BLS) API to get the real CPI data and caches the results in an H2 database for subsequent requests. This ensures the application stays within the API call limit.
+This Spring Boot application provides a web service that retrieves Consumer Price Index (CPI) values and notes for a specified month and year.
+The service calls the Bureau of Labor Statistics (BLS) API to get the real CPI data and caches the results in an H2 database for subsequent requests.
+This ensures the application stays within the API call limit.
+
+
+# Implementation Logic
+
+- Validates input
+- Checks if there is a CIS data in the local-cache-db for the given year and month saved in the last 24 hrs
+- If there is recent CIS data, it presents that data to the client.
+- If there is no recent data, it requests the external BLS-WEB-SERVICE. It then saves the response in the local-cache-db for future reuests. And, also serves the request
+
+# Building from source
 
 Build the JAR file: Open a terminal or command prompt, navigate to the root directory of your project (where the build.gradle file is located), and run:
 
@@ -25,15 +37,22 @@ A pre-built jar can be downloaded [here](https://github.com/mekete/repository/bl
 
 ## Accessing the service:
 
-You can use the imbedded swagger api docs:
+You can use the embedded swagger api docs:
+```sh
+http://localhost:8090/swagger-ui/index.html
+```
+
+
+
 ![Swagger API DOcs](swagger.png)
 
 
-As port 8080 may be used by most servlet containers, the default port is moved to 8090. You can, however, change the port by updating the value of in the  `application.properties` file
+As port 8080 may be used by most servlet containers, the default port is moved to 8090. You can, however, change the port by updating the value of `server.port` in the  `application.properties` file
 
 ```sh
 server.port=8090
 ```
+
 And you can run it
 ```sh
 {localhost-or-ip}:{your-port}
