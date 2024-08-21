@@ -49,25 +49,31 @@ public class CpiController {
 
         try {
             //check if we have a recent data in the cache database
-            System.out.println("Requesting bls-web-service");
+            System.out.println("INFO: Requesting bls-web-service");
             Optional<Cpi> cpiInDB = repository.findByYearAndMonthFirst(month, year, timestamp);
             if (cpiInDB.isPresent()) {
-                System.out.println("Returning from local cache db");
+                System.out.println("INFO: Returning from local cache db");
                 return new ResponseEntity<>(cpiInDB.get(), HttpStatus.OK);
             }
 
-            System.out.println("Requesting bls-web-service");
+            System.out.println("INFO: Requesting bls-web-service");
             //else, we will fetch from bls-web-service. we insert it to our cache database
             List<Cpi> cpiList = apiController.callBlsApi(BLS_SERIES_ID);
 
             if (!cpiList.isEmpty()) {
-                List<Cpi> list = new ArrayList<>();
-
+                System.out.println("INFO: Good! Got response from bls-web-service");
+                Cpi eureka=null;
                 for (Cpi cpi : cpiList) {
+                    if( month.equals(cpi.getMonth()) && year==cpi.getYear()){
+                        eureka=cpi;
+                    }
                     cpi.setInsertedTimestamp(new Date().getTime());
                     repository.save(cpi);
                 }
-                return new ResponseEntity<>(list.get(0), HttpStatus.OK);
+                return new ResponseEntity<>(eureka, HttpStatus.OK);
+
+            }else{
+                System.out.println("INFO: Empty response from bls-web-service");
 
             }
             return new ResponseEntity<>( HttpStatus.NO_CONTENT);
