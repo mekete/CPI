@@ -13,8 +13,8 @@ public interface CpiRepository extends JpaRepository<Cpi, Long> {
     //Optional<Cpi> findByYearAndMonth(String month, int year);
 
 
-    @Query("SELECT c FROM Cpi c WHERE c.month = :month AND c.year = :year ORDER BY c.id DESC")
-    Optional<Cpi> findByYearAndMonthFirst(@Param("month") String month, @Param("year") int year);
+    @Query("SELECT c FROM Cpi c WHERE c.month = :month AND c.year = :year  AND c.insertedTimestamp >:timestamp ORDER BY c.id DESC")
+    Optional<Cpi> findByYearAndMonthFirst(@Param("month") String month, @Param("year") int year,@Param("timestamp") Long timestamp );
 
 
 }

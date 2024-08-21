@@ -65,13 +65,13 @@ public class ApiController {
 
 
     @GetMapping("/external")
-    public List<Cpi> callBlsApi2(String seriesId) {
+    public List<Cpi> callBlsApi(String seriesId) {
         return this.webClient.get()
                 .uri("/publicAPI/v1/timeseries/data/{seriesId}", seriesId)
                 .retrieve()
                 .bodyToMono(Bls.class)  // Get the BLS response
-                .map(bls -> bls.getResults().getSeries().get(0).getCpis())  // Extract the list of cpis
-                .block();  // Block the reactive chain and return the list synchronously
+                .map(bls -> bls.getResults().getSeries().get(0).getCpis())
+                .block();
     }
 
 

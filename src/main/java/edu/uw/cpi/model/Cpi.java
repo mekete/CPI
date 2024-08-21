@@ -22,6 +22,11 @@ public class Cpi {
 
     @Column(name = "cpi_text")
     private String text;
+
+
+    @Column(name = "inserted_timestamp")
+    private Long insertedTimestamp;
+
     public Cpi() {
     }
 
@@ -79,5 +84,13 @@ public class Cpi {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Long getInsertedTimestamp() {
+        return insertedTimestamp;
+    }
+
+    public void setInsertedTimestamp(Long insertedTimestamp) {
+        this.insertedTimestamp = insertedTimestamp;
     }
 }
