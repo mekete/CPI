@@ -33,7 +33,7 @@ To run the JAR file, use the java -jar command:
 
 >java -jar libs/CPI-0.0.1-SNAPSHOT.jar
 
-A pre-built jar can be downloaded [here](https://github.com/mekete/repository/blob/main/resources/CPI-0.0.1-SNAPSHOT.jar).
+A pre-built jar can be downloaded [here](https://github.com/mekete/CPI/blob/main/CPI-0.0.1-SNAPSHOT.jar).
 
 ## Accessing the service:
 
