@@ -1,5 +1,5 @@
 
-package edu.uw.cpi.model.bls;
+package edu.uw.cpi;
 
 import java.util.List;
 
@@ -413,12 +413,14 @@ public class Bls {
 
         Gson gson = new Gson();
 
-        Bls bls = gson.fromJson(aaa,Bls.class);
+        Bls datas
+                = gson.fromJson(aaa,
+                Bls.class);
 
-        System.out.println(bls.getResults().getSeries().get(0).getData().get(0).getPeriod());
+        System.out.println(datas.getResults().get(0).getSeries().get(0).getData().get(0).getPeriod());
     }
 
-
+    //  Results.series.data
     @SerializedName("status")
     @Expose
     private String status;
@@ -430,7 +432,7 @@ public class Bls {
     private List<Object> message;
     @SerializedName("Results")
     @Expose
-    private Results results;
+    private List<Result> results;
 
     public String getStatus() {
         return status;
@@ -456,11 +458,11 @@ public class Bls {
         this.message = message;
     }
 
-    public Results getResults() {
+    public List<Result> getResults() {
         return results;
     }
 
-    public void setResults(Results results) {
+    public void setResults(List<Result> results) {
         this.results = results;
     }
 
